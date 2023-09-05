@@ -2,10 +2,12 @@ class landingPage{
 
     pick50dollar() { return cy.get('#option50') }
     giftCardValue() { return cy.get('#voucher-image-value') }
-    emailInputField() { return cy.get('[data-target="email.purchaserEmailInput"]') }
-    firstNameInputField() { return cy.get('[data-target="name.purchaserFirstNameInput"]') }
-    lastNameInputField() { return cy.get('[data-target="name.purchaserLastNameInput"]') }
+    emailInput() { return cy.get('[data-target="email.purchaserEmailInput"]') }
+    firstNameInput() { return cy.get('[data-target="name.purchaserFirstNameInput"]') }
+    lastNameInput() { return cy.get('[data-target="name.purchaserLastNameInput"]') }
     checkoutButton() { return cy.get('[data-target="checkout.checkoutButton"]').first() }
+    recipientEmailInput() { return cy.get('[data-target="email.recipientEmailInput"]') }
+    messageForRecipientInput() { return cy.get('[data-target="email.recipientMessageInput"]') }
 
 }
 
