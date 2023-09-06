@@ -1,13 +1,13 @@
 # CircleCI configuration file
 
-version: 2.1
 jobs:
-  build:
+  build-and-test:
     docker:
-      - image: alpine:3.15
+      - image: cimg/node:16.10
     steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
       - run:
-          name: The First Step
-          command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
+          name: Run tests
+          command: npm test
