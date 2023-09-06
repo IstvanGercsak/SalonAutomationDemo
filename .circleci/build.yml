@@ -1,11 +1,10 @@
-jobs:
-  build-and-test:
-    docker:
-      - image: cimg/node:16.10
-    steps:
-      - checkout
-      - node/install-packages:
-          pkg-manager: npm
-      - run:
-          name: Run tests
-          command: npm test
+version: 2.1
+
+orbs:
+  cypress: cypress-io/cypress@1
+
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          no-workspace: true
