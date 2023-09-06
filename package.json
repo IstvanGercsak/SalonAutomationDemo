@@ -18,6 +18,7 @@
   "homepage": "https://github.com/IstvanGercsak/SalonAutomationDemo#readme",
   "devDependencies": {
     "cypress": "^13.1.0",
+    "cypress-mailosaur": "^2.13.0",
     "cypress-xpath": "^2.0.1",
     "mailosaur": "^8.6.1"
   }
