@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/IstvanGercsak/SalonAutomationDemo/issues"
   },
-  "homepage": "https://github.com/IstvanGercsak/SalonAutomationDemo#readme"
+  "homepage": "https://github.com/IstvanGercsak/SalonAutomationDemo#readme",
+  "devDependencies": {
+    "cypress-xpath": "^2.0.1",
+    "mailosaur": "^8.6.1"
+  }
 }
