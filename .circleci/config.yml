@@ -1,6 +1,12 @@
 version: 2.1
 orbs:
   cypress: cypress-io/cypress@3
+
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          start-command: 'npm run start'
 jobs:
   install:
     executor: cypress/default
@@ -22,4 +28,3 @@ jobs:
       - cypress/run-tests:
           cypress-command: 'npx cypress run --parallel --record'
           start-command: 'npm run start'
-          
