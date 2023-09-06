@@ -1,0 +1,19 @@
+{
+  "name": "salonautomationdemo",
+  "version": "1.0.0",
+  "description": "demo automation framework",
+  "main": "cypress.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IstvanGercsak/SalonAutomationDemo.git"
+  },
+  "author": "Istvan Gercsak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IstvanGercsak/SalonAutomationDemo/issues"
+  },
+  "homepage": "https://github.com/IstvanGercsak/SalonAutomationDemo#readme"
+}
