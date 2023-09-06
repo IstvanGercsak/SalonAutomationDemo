@@ -21,4 +21,9 @@ jobs:
           at: ~/
       - cypress/run-tests:
           cypress-command: 'npx cypress run --parallel --record'
+          start-command: 'npm run start'
+workflows:
+  build:
+    jobs:
+      - cypress/run:
           start-command: 'npm run'
