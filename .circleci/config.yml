@@ -1,8 +1,24 @@
 version: 2.1
 orbs:
   cypress: cypress-io/cypress@3
-workflows:
-  build:
-    jobs:
-      - cypress/run:
+jobs:
+  install:
+    executor: cypress/default
+    steps:
+      - cypress/install:
+          install-browsers: true
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - .cache/Cypress
+            - project
+  run-tests:
+    executor: cypress/default
+    parallelism: 10
+    steps:
+      - run: echo "This step assumes dependencies were installed using the cypress/install job"
+      - attach_workspace:
+          at: ~/
+      - cypress/run-tests:
+          cypress-command: 'npx cypress run --parallel --record'
           start-command: 'npm run'
