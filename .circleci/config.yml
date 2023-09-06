@@ -13,11 +13,6 @@ jobs:
     steps:
       - cypress/install:
           install-browsers: true
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - .cache/Cypress
-            - project
   run-tests:
     executor: cypress/default
     parallelism: 10
