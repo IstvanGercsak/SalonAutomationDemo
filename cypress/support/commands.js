@@ -2,6 +2,7 @@ const constants = require ('../support/constans')
 import landingPage from "../support/page_objects/landingPage"
 import summaryPage from "../support/page_objects/summaryPage"
 import checkoutPage from "../support/page_objects/checkoutPage"
+import successPage from "../support/page_objects/successPage"
 
 Cypress.Commands.add('fillOutGiftCardDetailsForMe', (value, email, firstName, LastName) => {
     
@@ -75,3 +76,10 @@ Cypress.Commands.add('checkingDataOnSummaryPage', (voucherValue, totalCost, purc
 Cypress.Commands.add('getPaymentIframe', () => {
     return cy.get(checkoutPage.paymentFormIframe).its('0.contentDocument.body').then(cy.wrap)
   })
+
+Cypress.Commands.add('printGiftCardCodeInLog', () => {
+  successPage.giftcardCode().invoke('text').then((text) => {
+    cy.log("Gift card code: " + text)
+  });
+  })
+  

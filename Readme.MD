@@ -90,6 +90,8 @@ Most of these bugs founded during manual testing and these are just non-function
     * If I type too much character(200-300) the Checkout button will be inactive
 ![bug2](pictures/bug2.png)
 * At the payment step when I fill out the input fields the blueish borders are not covering the the input field perfectly
+![bug2](pictures/expiration.png)
+![bug2](pictures/name.png)
 * At the payment step when I miss the CVC number and click on the Submit button I didn't get back required field message:
 ![payment_verification](pictures/payment_verification.png)
 

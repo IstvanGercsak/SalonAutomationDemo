@@ -40,6 +40,8 @@ describe('End to end scenarios', () => {
 
       cy.getPaymentIframe().find(checkoutPage.submitButton).click();
 
+      successPage.paymentAccepted().should('have.text', 'Payment accepted, thank you!');
+      cy.printGiftCardCodeInLog();
       successPage.giftCardValue().should('have.text', constants.VALUE[50]);
       successPage.doneButton().click();
 
@@ -76,6 +78,8 @@ describe('End to end scenarios', () => {
 
       cy.getPaymentIframe().find(checkoutPage.submitButton).click();
 
+      successPage.paymentAccepted().should('have.text', 'Payment accepted, thank you!');
+      cy.printGiftCardCodeInLog();
       successPage.giftCardValue().should('have.text', constants.VALUE[100]);
       successPage.doneButton().click();
 
@@ -112,6 +116,8 @@ describe('End to end scenarios', () => {
 
       cy.getPaymentIframe().find(checkoutPage.submitButton).click();
 
+      successPage.paymentAccepted().should('have.text', 'Payment accepted, thank you!');
+      cy.printGiftCardCodeInLog();
       successPage.giftCardValue().should('have.text', constants.VALUE[150]);
       successPage.doneButton().click();
 
@@ -151,6 +157,8 @@ describe('End to end scenarios', () => {
 
       cy.getPaymentIframe().find(checkoutPage.submitButton).click();
 
+      successPage.paymentAccepted().should('have.text', 'Payment accepted, thank you!');
+      cy.printGiftCardCodeInLog();
       successPage.giftCardValue().should('have.text', constants.VALUE[222]);
       successPage.doneButton().click();
 
@@ -189,6 +197,8 @@ describe('End to end scenarios', () => {
 
       cy.getPaymentIframe().find(checkoutPage.submitButton).click();
 
+      successPage.paymentAccepted().should('have.text', 'Payment accepted, thank you!');
+      cy.printGiftCardCodeInLog();
       successPage.giftCardValue().should('have.text', constants.VALUE[50]);
       successPage.doneButton().click();
 
@@ -227,6 +237,8 @@ describe('End to end scenarios', () => {
 
       cy.getPaymentIframe().find(checkoutPage.submitButton).click();
 
+      successPage.paymentAccepted().should('have.text', 'Payment accepted, thank you!');
+      cy.printGiftCardCodeInLog();
       successPage.giftCardValue().should('have.text', constants.VALUE[100]);
       successPage.doneButton().click();
 
@@ -265,6 +277,8 @@ describe('End to end scenarios', () => {
 
       cy.getPaymentIframe().find(checkoutPage.submitButton).click();
 
+      successPage.paymentAccepted().should('have.text', 'Payment accepted, thank you!');
+      cy.printGiftCardCodeInLog();
       successPage.giftCardValue().should('have.text', constants.VALUE[150]);
       successPage.doneButton().click();
 
@@ -306,6 +320,8 @@ describe('End to end scenarios', () => {
 
       cy.getPaymentIframe().find(checkoutPage.submitButton).click();
 
+      successPage.paymentAccepted().should('have.text', 'Payment accepted, thank you!');
+      cy.printGiftCardCodeInLog();
       successPage.giftCardValue().should('have.text', constants.VALUE[222]);
       successPage.doneButton().click();
 
@@ -344,6 +360,8 @@ describe('End to end scenarios', () => {
 
       cy.getPaymentIframe().find(checkoutPage.submitButton).click();
 
+      successPage.paymentAccepted().should('have.text', 'Payment accepted, thank you!');
+      cy.printGiftCardCodeInLog();
       successPage.giftCardValue().should('have.text', constants.VALUE[100]);
       successPage.doneButton().click();
 
