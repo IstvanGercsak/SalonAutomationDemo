@@ -233,7 +233,7 @@ describe('End to end scenarios', () => {
       cy.url().should('eq', constants.testWebstieURL);
     })
 
-    it.only('Pay $150 for someone else', () => {
+    it('Pay $150 for someone else', () => {
       cy.fillOutGiftCardDetailsForSomeoneElse(
         constants.VALUE[150],
         constants.TESTUSER.MY_EMAIL,
