@@ -22,6 +22,6 @@ export const VALUE = {
 
 export const testWebstieURL = 'https://gift-cards.phorest.com/salons/demous#';
 
-export const serverId = 'ar90ee5t'
-const serverDomain = 'element-might@ar90ee5t.mailosaur.net'
-export const emailAddress = 'checkEmail' + serverDomain
+export const serverId = 'ar90ee5t';
+const serverDomain = 'element-might@ar90ee5t.mailosaur.net';
+export const emailAddress = 'checkEmail' + serverDomain;

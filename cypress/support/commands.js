@@ -1,5 +1,6 @@
 const constants = require ('../support/constans')
 import landingPage from "../support/page_objects/landingPage"
+import summaryPage from "../support/page_objects/summaryPage"
 import checkoutPage from "../support/page_objects/checkoutPage"
 
 Cypress.Commands.add('fillOutGiftCardDetailsForMe', (value, email, firstName, LastName) => {
@@ -24,7 +25,6 @@ Cypress.Commands.add('fillOutGiftCardDetailsForMe', (value, email, firstName, La
     landingPage.firstNameInput().type(firstName)
     landingPage.lastNameInput().invoke('attr', 'placeholder').should('eq', 'last name ...')
     landingPage.lastNameInput().type(LastName)
-    landingPage.checkoutButton().click({force: true});
   })
 
 Cypress.Commands.add('fillOutGiftCardDetailsForSomeoneElse', (value, email, firstName, LastName, recipientEmail, messageForRecipient) => {
@@ -54,8 +54,6 @@ Cypress.Commands.add('fillOutGiftCardDetailsForSomeoneElse', (value, email, firs
     landingPage.recipientEmailInput().type(recipientEmail)
     landingPage.messageForRecipientInput().invoke('attr', 'placeholder').should('eq', 'type your message here eg. Hi Mom, Happy Birthday! Love Karen')
     landingPage.messageForRecipientInput().type(messageForRecipient)
-
-    landingPage.checkoutButton().click({force: true});
   })
 
 Cypress.Commands.add('fillIframePaymentSection', (firstName, lastName, zipCode, cardNumber, expiration, cvc) => {
@@ -65,7 +63,13 @@ Cypress.Commands.add('fillIframePaymentSection', (firstName, lastName, zipCode, 
     cy.getPaymentIframe().find(checkoutPage.cardNumberInput).type(cardNumber)
     cy.getPaymentIframe().find(checkoutPage.expirationDateInput).type(expiration)
     cy.getPaymentIframe().find(checkoutPage.securityCodeInput).type(cvc)
-    cy.getPaymentIframe().find(checkoutPage.submitButton).click()
+  })
+
+Cypress.Commands.add('checkingDataOnSummaryPage', (voucherValue, totalCost, purchaserEmail, recipientEmail) => {
+    summaryPage.voucherValue().should('contain', voucherValue)
+    summaryPage.totalCost().should('contain', totalCost)
+    summaryPage.purchaserEmail().should('contain', purchaserEmail)
+    summaryPage.recipientEmail().should('contain', recipientEmail)
   })
 
 Cypress.Commands.add('getPaymentIframe', () => {

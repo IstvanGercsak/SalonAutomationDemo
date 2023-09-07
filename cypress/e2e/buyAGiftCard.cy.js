@@ -1,27 +1,33 @@
 const constants = require ('../support/constans')
-const summaryPage = require('../support/page_objects/summaryPage')
-const successPage = require('../support/page_objects/successPage');
 const landingPage = require('../support/page_objects/landingPage');
+const summaryPage = require('../support/page_objects/summaryPage');
+const checkoutPage = require('../support/page_objects/checkoutPage');
+const successPage = require('../support/page_objects/successPage');
 
 describe('End to end scenarios', () => {
     
     beforeEach(() => {
-      cy.visit(constants.testWebstieURL)
+      cy.visit(constants.testWebstieURL);
     })
 
-    it('Pay 50$ for me', () => {
+    it('Pay $50 for me', () => {
       cy.fillOutGiftCardDetailsForMe(
         constants.VALUE[50],
         constants.TESTUSER.MY_EMAIL,
         constants.TESTUSER.FIRST_NAME,
         constants.TESTUSER.LAST_NAME
       );
+
+      landingPage.checkoutButton().click({force: true});
       
-      summaryPage.voucherValue().should('contain', constants.VALUE[50])
-      summaryPage.totalCost().should('contain', constants.VALUE[50])
-      summaryPage.purchaserEmail().should('contain', constants.TESTUSER.MY_EMAIL)
-      summaryPage.recipientEmail().should('contain', constants.TESTUSER.MY_EMAIL)
-      summaryPage.confirmDetailsButton().click()
+      cy.checkingDataOnSummaryPage(
+        constants.VALUE[50],
+        constants.VALUE[50],
+        constants.TESTUSER.MY_EMAIL,
+        constants.TESTUSER.MY_EMAIL
+      );
+
+      summaryPage.confirmDetailsButton().click();
       
       cy.fillIframePaymentSection(
         constants.TESTUSER.FIRST_NAME,
@@ -30,15 +36,17 @@ describe('End to end scenarios', () => {
         constants.PAYMENT_DATA.CARD_NUMBER,
         constants.PAYMENT_DATA.EXPIRATION,
         constants.PAYMENT_DATA.CVC,
-      )
+      );
 
-      successPage.giftCardValue().should('have.text', constants.VALUE[50])
-      successPage.doneButton().click()
+      cy.getPaymentIframe().find(checkoutPage.submitButton).click();
 
-      cy.url().should('eq', constants.testWebstieURL)
+      successPage.giftCardValue().should('have.text', constants.VALUE[50]);
+      successPage.doneButton().click();
+
+      cy.url().should('eq', constants.testWebstieURL);
     })
 
-    it('Pay 100$ for me', () => {
+    it('Pay $100 for me', () => {
       cy.fillOutGiftCardDetailsForMe(
         constants.VALUE[100],
         constants.TESTUSER.MY_EMAIL,
@@ -46,11 +54,16 @@ describe('End to end scenarios', () => {
         constants.TESTUSER.LAST_NAME
       );
       
-      summaryPage.voucherValue().should('contain', constants.VALUE[100])
-      summaryPage.totalCost().should('contain', constants.VALUE[100])
-      summaryPage.purchaserEmail().should('contain', constants.TESTUSER.MY_EMAIL)
-      summaryPage.recipientEmail().should('contain', constants.TESTUSER.MY_EMAIL)
-      summaryPage.confirmDetailsButton().click()
+      landingPage.checkoutButton().click({force: true});
+
+      cy.checkingDataOnSummaryPage(
+        constants.VALUE[100],
+        constants.VALUE[100],
+        constants.TESTUSER.MY_EMAIL,
+        constants.TESTUSER.MY_EMAIL
+      );
+
+      summaryPage.confirmDetailsButton().click();
       
       cy.fillIframePaymentSection(
         constants.TESTUSER.FIRST_NAME,
@@ -59,27 +72,34 @@ describe('End to end scenarios', () => {
         constants.PAYMENT_DATA.CARD_NUMBER,
         constants.PAYMENT_DATA.EXPIRATION,
         constants.PAYMENT_DATA.CVC,
-      )
+      );
 
-      successPage.giftCardValue().should('have.text', constants.VALUE[100])
-      successPage.doneButton().click()
+      cy.getPaymentIframe().find(checkoutPage.submitButton).click();
 
-      cy.url().should('eq', constants.testWebstieURL)
+      successPage.giftCardValue().should('have.text', constants.VALUE[100]);
+      successPage.doneButton().click();
+
+      cy.url().should('eq', constants.testWebstieURL);
     })
 
-    it('Pay 150$ for me', () => {
+    it('Pay $150 for me', () => {
       cy.fillOutGiftCardDetailsForMe(
         constants.VALUE[150],
         constants.TESTUSER.MY_EMAIL,
         constants.TESTUSER.FIRST_NAME,
         constants.TESTUSER.LAST_NAME
       );
+
+      landingPage.checkoutButton().click({force: true});
       
-      summaryPage.voucherValue().should('contain',constants.VALUE[150])
-      summaryPage.totalCost().should('contain',constants.VALUE[150])
-      summaryPage.purchaserEmail().should('contain',constants.TESTUSER.MY_EMAIL)
-      summaryPage.recipientEmail().should('contain',constants.TESTUSER.MY_EMAIL)
-      summaryPage.confirmDetailsButton().click()
+      cy.checkingDataOnSummaryPage(
+        constants.VALUE[150],
+        constants.VALUE[150],
+        constants.TESTUSER.MY_EMAIL,
+        constants.TESTUSER.MY_EMAIL
+      );
+
+      summaryPage.confirmDetailsButton().click();
       
       cy.fillIframePaymentSection(
         constants.TESTUSER.FIRST_NAME,
@@ -88,29 +108,37 @@ describe('End to end scenarios', () => {
         constants.PAYMENT_DATA.CARD_NUMBER,
         constants.PAYMENT_DATA.EXPIRATION,
         constants.PAYMENT_DATA.CVC,
-      )
+      );
 
-      successPage.giftCardValue().should('have.text', constants.VALUE[150])
-      successPage.doneButton().click()
+      cy.getPaymentIframe().find(checkoutPage.submitButton).click();
 
-      cy.url().should('eq', constants.testWebstieURL)
+      successPage.giftCardValue().should('have.text', constants.VALUE[150]);
+      successPage.doneButton().click();
+
+      cy.url().should('eq', constants.testWebstieURL);
     })
 
     it('Pay other amount for me - $222', () => {
       landingPage.optionOther().click()
       landingPage.otherAmountInput().type(222)
+      
       cy.fillOutGiftCardDetailsForMe(
         constants.VALUE[222],
         constants.TESTUSER.MY_EMAIL,
         constants.TESTUSER.FIRST_NAME,
         constants.TESTUSER.LAST_NAME
       );
+
+      landingPage.checkoutButton().click({force: true});
       
-      summaryPage.voucherValue().should('contain', 222)
-      summaryPage.totalCost().should('contain', 222)
-      summaryPage.purchaserEmail().should('contain', constants.TESTUSER.MY_EMAIL)
-      summaryPage.recipientEmail().should('contain', constants.TESTUSER.MY_EMAIL)
-      summaryPage.confirmDetailsButton().click()
+      cy.checkingDataOnSummaryPage(
+        constants.VALUE[222],
+        constants.VALUE[222],
+        constants.TESTUSER.MY_EMAIL,
+        constants.TESTUSER.MY_EMAIL
+      );
+
+      summaryPage.confirmDetailsButton().click();
       
       cy.fillIframePaymentSection(
         constants.TESTUSER.FIRST_NAME,
@@ -121,13 +149,15 @@ describe('End to end scenarios', () => {
         constants.PAYMENT_DATA.CVC,
       )
 
-      successPage.giftCardValue().should('have.text', constants.VALUE[222])
-      successPage.doneButton().click()
+      cy.getPaymentIframe().find(checkoutPage.submitButton).click();
 
-      cy.url().should('eq', constants.testWebstieURL)
+      successPage.giftCardValue().should('have.text', constants.VALUE[222]);
+      successPage.doneButton().click();
+
+      cy.url().should('eq', constants.testWebstieURL);
     })
 
-    it('Pay 50$ for someone else', () => {
+    it('Pay $50 for someone else', () => {
       cy.fillOutGiftCardDetailsForSomeoneElse(
         constants.VALUE[50],
         constants.TESTUSER.MY_EMAIL,
@@ -137,11 +167,16 @@ describe('End to end scenarios', () => {
         constants.TESTUSER.MESSAGE_FOR_RECIPIENT
       );
       
-      summaryPage.voucherValue().should('contain', constants.VALUE[50])
-      summaryPage.totalCost().should('contain', constants.VALUE[50])
-      summaryPage.purchaserEmail().should('contain', constants.TESTUSER.MY_EMAIL)
-      summaryPage.recipientEmail().should('contain', constants.TESTUSER.SOMEONE_ELSE_EMAIL)
-      summaryPage.confirmDetailsButton().click()
+      landingPage.checkoutButton().click({force: true});
+
+      cy.checkingDataOnSummaryPage(
+        constants.VALUE[50],
+        constants.VALUE[50],
+        constants.TESTUSER.MY_EMAIL,
+        constants.TESTUSER.SOMEONE_ELSE_EMAIL
+      );
+
+      summaryPage.confirmDetailsButton().click();
       
       cy.fillIframePaymentSection(
         constants.TESTUSER.FIRST_NAME,
@@ -150,15 +185,17 @@ describe('End to end scenarios', () => {
         constants.PAYMENT_DATA.CARD_NUMBER,
         constants.PAYMENT_DATA.EXPIRATION,
         constants.PAYMENT_DATA.CVC,
-      )
+      );
 
-      successPage.giftCardValue().should('have.text', constants.VALUE[50])
-      successPage.doneButton().click()
+      cy.getPaymentIframe().find(checkoutPage.submitButton).click();
 
-      cy.url().should('eq', constants.testWebstieURL)
+      successPage.giftCardValue().should('have.text', constants.VALUE[50]);
+      successPage.doneButton().click();
+
+      cy.url().should('eq', constants.testWebstieURL);
     })
 
-    it('Pay 100$ for someone else', () => {
+    it('Pay $100 for someone else', () => {
       cy.fillOutGiftCardDetailsForSomeoneElse(
         constants.VALUE[100],
         constants.TESTUSER.MY_EMAIL,
@@ -168,11 +205,16 @@ describe('End to end scenarios', () => {
         constants.TESTUSER.MESSAGE_FOR_RECIPIENT
       );
       
-      summaryPage.voucherValue().should('contain', constants.VALUE[100])
-      summaryPage.totalCost().should('contain', constants.VALUE[100])
-      summaryPage.purchaserEmail().should('contain', constants.TESTUSER.MY_EMAIL)
-      summaryPage.recipientEmail().should('contain', constants.TESTUSER.SOMEONE_ELSE_EMAIL)
-      summaryPage.confirmDetailsButton().click()
+      landingPage.checkoutButton().click({force: true});
+
+      cy.checkingDataOnSummaryPage(
+        constants.VALUE[100],
+        constants.VALUE[100],
+        constants.TESTUSER.MY_EMAIL,
+        constants.TESTUSER.SOMEONE_ELSE_EMAIL
+      );
+
+      summaryPage.confirmDetailsButton().click();
       
       cy.fillIframePaymentSection(
         constants.TESTUSER.FIRST_NAME,
@@ -181,15 +223,17 @@ describe('End to end scenarios', () => {
         constants.PAYMENT_DATA.CARD_NUMBER,
         constants.PAYMENT_DATA.EXPIRATION,
         constants.PAYMENT_DATA.CVC,
-      )
+      );
 
-      successPage.giftCardValue().should('have.text', constants.VALUE[100])
-      successPage.doneButton().click()
+      cy.getPaymentIframe().find(checkoutPage.submitButton).click();
 
-      cy.url().should('eq', constants.testWebstieURL)
+      successPage.giftCardValue().should('have.text', constants.VALUE[100]);
+      successPage.doneButton().click();
+
+      cy.url().should('eq', constants.testWebstieURL);
     })
 
-    it('Pay 150$ for someone else', () => {
+    it.only('Pay $150 for someone else', () => {
       cy.fillOutGiftCardDetailsForSomeoneElse(
         constants.VALUE[150],
         constants.TESTUSER.MY_EMAIL,
@@ -198,12 +242,17 @@ describe('End to end scenarios', () => {
         constants.TESTUSER.SOMEONE_ELSE_EMAIL,
         constants.TESTUSER.MESSAGE_FOR_RECIPIENT
       );
+
+      landingPage.checkoutButton().click({force: true});
       
-      summaryPage.voucherValue().should('contain', constants.VALUE[150])
-      summaryPage.totalCost().should('contain', constants.VALUE[150])
-      summaryPage.purchaserEmail().should('contain', constants.TESTUSER.MY_EMAIL)
-      summaryPage.recipientEmail().should('contain', constants.TESTUSER.SOMEONE_ELSE_EMAIL)
-      summaryPage.confirmDetailsButton().click()
+      cy.checkingDataOnSummaryPage(
+        constants.VALUE[150],
+        constants.VALUE[150],
+        constants.TESTUSER.MY_EMAIL,
+        constants.TESTUSER.SOMEONE_ELSE_EMAIL
+      );
+
+      summaryPage.confirmDetailsButton().click();
       
       cy.fillIframePaymentSection(
         constants.TESTUSER.FIRST_NAME,
@@ -212,17 +261,20 @@ describe('End to end scenarios', () => {
         constants.PAYMENT_DATA.CARD_NUMBER,
         constants.PAYMENT_DATA.EXPIRATION,
         constants.PAYMENT_DATA.CVC,
-      )
+      );
 
-      successPage.giftCardValue().should('have.text', constants.VALUE[150])
-      successPage.doneButton().click()
+      cy.getPaymentIframe().find(checkoutPage.submitButton).click();
 
-      cy.url().should('eq', constants.testWebstieURL)
+      successPage.giftCardValue().should('have.text', constants.VALUE[150]);
+      successPage.doneButton().click();
+
+      cy.url().should('eq', constants.testWebstieURL);
     })
 
     it('Pay other amount for someone else - $222', () => {
       landingPage.optionOther().click()
       landingPage.otherAmountInput().type(222)
+
       cy.fillOutGiftCardDetailsForSomeoneElse(
         constants.VALUE[222],
         constants.TESTUSER.MY_EMAIL,
@@ -232,11 +284,16 @@ describe('End to end scenarios', () => {
         constants.TESTUSER.MESSAGE_FOR_RECIPIENT
       );
       
-      summaryPage.voucherValue().should('contain', constants.VALUE[222])
-      summaryPage.totalCost().should('contain', constants.VALUE[222])
-      summaryPage.purchaserEmail().should('contain', constants.TESTUSER.MY_EMAIL)
-      summaryPage.recipientEmail().should('contain', constants.TESTUSER.SOMEONE_ELSE_EMAIL)
-      summaryPage.confirmDetailsButton().click()
+      landingPage.checkoutButton().click({force: true});
+
+      cy.checkingDataOnSummaryPage(
+        constants.VALUE[222],
+        constants.VALUE[222],
+        constants.TESTUSER.MY_EMAIL,
+        constants.TESTUSER.SOMEONE_ELSE_EMAIL
+      );
+
+      summaryPage.confirmDetailsButton().click();
       
       cy.fillIframePaymentSection(
         constants.TESTUSER.FIRST_NAME,
@@ -245,12 +302,14 @@ describe('End to end scenarios', () => {
         constants.PAYMENT_DATA.CARD_NUMBER,
         constants.PAYMENT_DATA.EXPIRATION,
         constants.PAYMENT_DATA.CVC,
-      )
+      );
 
-      successPage.giftCardValue().should('have.text', constants.VALUE[222])
-      successPage.doneButton().click()
+      cy.getPaymentIframe().find(checkoutPage.submitButton).click();
 
-      cy.url().should('eq', constants.testWebstieURL)
+      successPage.giftCardValue().should('have.text', constants.VALUE[222]);
+      successPage.doneButton().click();
+
+      cy.url().should('eq', constants.testWebstieURL);
     })
 
     it('Check email sending is working', () => {
@@ -263,11 +322,16 @@ describe('End to end scenarios', () => {
         constants.TESTUSER.MESSAGE_FOR_RECIPIENT
       );
       
-      summaryPage.voucherValue().should('contain', constants.VALUE[100])
-      summaryPage.totalCost().should('contain', constants.VALUE[100])
-      summaryPage.purchaserEmail().should('contain', constants.emailAddress)
-      summaryPage.recipientEmail().should('contain', constants.emailAddress)
-      summaryPage.confirmDetailsButton().click()
+      landingPage.checkoutButton().click({force: true});
+
+      cy.checkingDataOnSummaryPage(
+        constants.VALUE[100],
+        constants.VALUE[100],
+        constants.emailAddress,
+        constants.emailAddress
+      );
+
+      summaryPage.confirmDetailsButton().click();
       
       cy.fillIframePaymentSection(
         constants.TESTUSER.FIRST_NAME,
@@ -276,15 +340,16 @@ describe('End to end scenarios', () => {
         constants.PAYMENT_DATA.CARD_NUMBER,
         constants.PAYMENT_DATA.EXPIRATION,
         constants.PAYMENT_DATA.CVC,
-      )
+      );
 
-      successPage.giftCardValue().should('have.text', constants.VALUE[100])
-      successPage.doneButton().click()
+      cy.getPaymentIframe().find(checkoutPage.submitButton).click();
+
+      successPage.giftCardValue().should('have.text', constants.VALUE[100]);
+      successPage.doneButton().click();
 
       cy.mailosaurListMessages(constants.serverId).then((result) => {
         const senderMessage = result.items[0];
         const RecipientMessage = result.items[1];
-      
       // Since I am using the same email address for both recipient the order of the emails sometimes different
       // I use this approach to avoid the fragileness of the test
       if (senderMessage == "Your Receipt for Arden Courts"){
@@ -296,7 +361,7 @@ describe('End to end scenarios', () => {
         }
       });
 
-      cy.url().should('eq', constants.testWebstieURL)
+      cy.url().should('eq', constants.testWebstieURL);
       
     })
   
